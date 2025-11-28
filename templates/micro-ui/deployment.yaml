@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-todo-micro-ui
+spec:
+  replicas: {{ .Values.ui.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-todo-micro-ui
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-todo-micro-ui
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-todo-micro-ui
+        image: "{{ .Values.common.containerRegistryURL }}/{{ .Values.ui.image.name }}:{{ .Values.ui.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.ui.port }}

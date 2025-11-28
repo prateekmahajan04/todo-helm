@@ -1,0 +1,49 @@
+common:
+  containerRegistryURL: acrprateek9143.azurecr.ioazurecr.io
+  ingressClass: azure-application-gateway
+  
+ui:
+  replicas: 2
+  image:
+    name: todo-micro-ui
+    tag: v2
+  port: 80
+  ServicePort: 80
+  ingress:
+    host: ui.jhandu.shop
+
+getTask:
+  replicas: 2
+  image:
+    name: todo-get-tasks
+    tag: v2
+  port: 8000
+  ServicePort: 80
+  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:sqlserver-prateek.database.windows.net,1433;Database=terraform-sqldb-1;Uid=sqladminuser;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+  ingress:
+    host: get-tasks-api.jhandu.shop
+    ingressClass: azure-application-gateway
+
+deleteTask:
+  replicas: 2
+  image:
+    name: todo-delete-tasks
+    tag: v2
+  port: 8000
+  ServicePort: 80
+  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:sqlserver-prateek.database.windows.net,1433;Database=terraform-sqldb-1;Uid=sqladminuser;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+  ingress:
+    host: delete-task-api.jhandu.shop
+    ingressClass: azure-application-gateway
+
+addTask:
+  replicas: 2
+  image:
+    name: todo-add-tasks
+    tag: v2
+  port: 8000
+  ServicePort: 80
+  connectionString: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:sqlserver-prateek.database.windows.net,1433;Database=terraform-sqldb-1;Uid=sqladminuser;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;" 
+  ingress:
+    host: add-task-api.jhandu.shop
+    ingressClass: azure-application-gateway
